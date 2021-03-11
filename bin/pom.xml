@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.3.3.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>co.com.alfaseguros.mediatorosb</groupId>
+	<artifactId>alfa-mediatorosb</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>alfa-mediatorosb</name>
+	<description>Componente encargado de realziar la mediacion entre el BUS y los componentes del AWS</description>
+	
+	<organization>
+		<name>Seguros Alfa</name>
+		<url>https://www.segurosalfa.com.co/</url>
+	</organization>
+	
+	<!-- 
+		Developers Teams :P 
+	-->
+	<developers>
+		<developer>
+			<id>ibaletran427</id>
+			<name>Ian Beltran</name>
+			<email>ian.beltran@linexperts.com</email>
+			<url>https://www.segurosalfa.com.co/</url>
+			<organization>Seguros Alfa</organization>
+			<organizationUrl>https://www.segurosalfa.com.co/</organizationUrl>
+			<roles>
+				<role>Desarrollador</role>
+			</roles>
+			<timezone>America/Bogota</timezone>
+			<properties>
+				<picture>http://www.oorsprong.org/WebSamples.CountryInfo/Images/Colombia.jpg</picture>
+			</properties>
+		</developer>
+	</developers>
+	
+	<!-- 
+		Information of git repository
+	-->
+	<scm>
+		<url>https://github.com/wortiz1027/alfa-mediatorosb</url>
+		<connection>scm:git:git@github.com:wortiz1027/alfa-mediatorosb.git</connection>
+		<developerConnection>scm:git:git@github.com:wortiz1027/alfa-mediatorosb.git</developerConnection>
+		<tag>master</tag>
+	</scm>
+	
+	<!-- 
+		Information CI Server 
+	-->
+	<ciManagement>
+		<system>jenkins</system>
+		<url>http://centos-cicd2:8080/</url>
+		<notifiers>
+			<notifier>
+				<type>mail</type>
+				<sendOnError>true</sendOnError>
+				<sendOnFailure>true</sendOnFailure>
+				<sendOnSuccess>false</sendOnSuccess>
+				<sendOnWarning>false</sendOnWarning>
+				<configuration>
+					<address>jenkins@localhost.com.co</address>
+				</configuration>
+			</notifier>
+		</notifiers>
+	</ciManagement>
+	
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<activatedProperties>dev</activatedProperties>
+				<skip.unit.tests>false</skip.unit.tests>
+				<skip.integration.tests>true</skip.integration.tests>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>stg</id>
+			<properties>
+				<activatedProperties>stg</activatedProperties>
+				<skip.unit.tests>true</skip.unit.tests>
+				<skip.integration.tests>false</skip.integration.tests>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>prd</id>
+			<properties>
+				<activatedProperties>prd</activatedProperties>
+			</properties>
+		</profile>
+	</profiles>
+	
+	<properties>
+		<java.version>1.8</java.version>
+		<aws.sdk.version>2.14.23</aws.sdk.version>		
+		<swagger.version>2.9.2</swagger.version>
+		<cloud.localstack.version>0.2.1</cloud.localstack.version>
+		<mockito-core-version>3.4.6</mockito-core-version>
+		<mockito-inline.version>3.4.6</mockito-inline.version>
+		<skip.unit.test>false</skip.unit.test>
+		<skip.integration.tests>true</skip.integration.tests>	
+	</properties>
+	
+	<!-- 
+		Manager for each group of dependecies aws, spring cloud 
+	-->
+	<dependencyManagement>
+	  <dependencies>
+	    <dependency>
+	      <groupId>software.amazon.awssdk</groupId>
+	      <artifactId>bom</artifactId>
+	      <version>2.14.23</version>
+	      <type>pom</type>
+	      <scope>import</scope>
+	    </dependency>	    
+	  </dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<!-- 
+			aws dependencies 
+		-->
+		<dependency>
+		  <groupId>software.amazon.awssdk</groupId>
+		  <artifactId>aws-sdk-java</artifactId>
+		  <version>${aws.sdk.version}</version>
+		</dependency>
+	
+		<!-- 
+			Spring Dependencies 
+		-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency> 
+		    <groupId>org.springframework.boot</groupId> 
+		    <artifactId>spring-boot-starter-validation</artifactId> 
+		</dependency>
+		
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+		
+		<dependency>
+		    <groupId>software.amazon.awssdk</groupId>
+		    <artifactId>secretsmanager</artifactId>		    
+		</dependency>
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>		    
+		</dependency>
+		
+		<dependency>
+    		<groupId>org.apache.httpcomponents</groupId>
+    		<artifactId>httpclient</artifactId>    		
+		</dependency>
+		
+		<dependency>
+    		<groupId>org.springframework</groupId>
+    		<artifactId>spring-core</artifactId>    		
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>			
+			<scope>test</scope>
+		</dependency>		
+		
+	</dependencies>
+
+	<build>
+		<finalName>mediatorosb-service</finalName>
+		
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		
+		<plugins>			
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<!-- 
+				Plugin :: Maven  for add new directory for integrations test 
+			-->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>add-integration-test-sources</id>
+						<phase>generate-test-sources</phase>
+						<goals>
+							<goal>add-test-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>src/itest/java</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- 
+				Plugin :: Maven for exec the Unit Test 
+			-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>**/*IT.java</exclude>
+					</excludes>
+					<skipTests>${skip.unit.tests}</skipTests>
+					<!-- <argLine>${surefire.jacoco.args}</argLine> -->			       
+				</configuration>
+			</plugin>
+
+			<!-- 
+				Plugin :: Maven exec the integration tests 
+			-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>integration-tests</id>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+						<configuration>
+							<includes>
+								<include>**/*IT.java</include>
+							</includes>
+							<groups>co.com.alfaseguros.integrationtest.IntegrationTest</groups>
+							<skipTests>${skip.integration.tests}</skipTests>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<plugin>
+			    <groupId>org.jacoco</groupId>
+			    <artifactId>jacoco-maven-plugin</artifactId>
+			    <version>0.8.4</version>
+				<configuration>
+					<outputDirectory>${project.build.directory}/coverage-reports/jacoco</outputDirectory>
+					<excludes>
+						<exclude>co/com/alfaseguros/*/config/**/*</exclude>
+				        <exclude>co/com/alfaseguros/*/domain/**/*</exclude>
+				        <exclude>co/com/alfaseguros/*/utils/**/*</exclude>
+				        <exclude>co/com/alfaseguros/*/exceptions/**/*</exclude>
+				        <exclude>co/com/alfaseguros/*/scheduler/**/*</exclude>
+				        <exclude>co/com/alfaseguros/*/AlfaMediatorosbApplication.class</exclude>
+					</excludes>
+				</configuration>			    
+			    <executions>
+			        <execution>
+			            <id>default-prepare-agent</id>
+			            <goals>
+			                <goal>prepare-agent</goal>
+			            </goals>
+			        </execution>
+			        <execution>
+			            <id>default-report</id>
+			            <phase>prepare-package</phase>
+			            <goals>
+			                <goal>report</goal>
+			            </goals>
+			        </execution>
+			    </executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

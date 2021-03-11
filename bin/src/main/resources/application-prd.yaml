@@ -1,0 +1,53 @@
+# +-----------------------------------------------------
+# |         SPRING LOGGIN CONFIG
+# +-----------------------------------------------------
+logging:
+  level:
+    org.springframework.web: DEBUG
+    org.springframework.web.client.RestTemplate: DEBUG    
+    co.com.alfaseguros: DEBUG
+  pattern:
+    console: "%d{yyyy-MMM-dd HH:mm:ss a} [%t] %-5level %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+# +-----------------------------------------------------
+# |         ALFA PARAMS
+# +-----------------------------------------------------
+   
+alfa: 
+  security:
+    secretName: ${CREDENTIAL_STORE:CredentialStore}
+
+# +-----------------------------------------------------
+# |         OSB CONFIG
+# +-----------------------------------------------------
+osb:
+  configuration:
+    host: ${OSB_HOST:https://10.61.57.142:9449} 
+  security:
+    authorization: Authorization    
+    basic : "Basic "
+  header:
+    key:
+     channel: X-Channel
+     companyid: X-CompanyId
+     rquid: X-RqUID
+     ipaddr: X-IPAddr
+     sesskey: X-SessKey
+    value:
+     channel: SIPREN
+     companyid: 123456
+  services:
+    gettoken:
+      url: ${osb.configuration.host}/security/tokeninquiry/v1/inqtoken
+    policies:
+      url: ${osb.configuration.host}/lah/policyInquiry/v1/inqpolicies/policies
+      parameters:
+        custidenttype: CustIdentType
+        custidentnum: CustIdentNum
+    policyevent:      
+      url: ${osb.configuration.host}/lah/policyeventadd/v1/setpolicyeventqueuemessage 
+  ssl:
+    keystore:     
+     path: ${PATH_KEYSTORE:/app/ssl/alfa-osb-prd.jks}
+ 

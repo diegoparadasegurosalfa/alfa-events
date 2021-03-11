@@ -1,0 +1,27 @@
+# +-----------------------------------------------------
+# |         SPRING LOGGIN CONFIG
+# +-----------------------------------------------------
+logging:
+  level:
+    org.springframework.web: DEBUG
+    org.springframework.web.client.RestTemplate: DEBUG    
+    co.com.alfaseguros: DEBUG
+  pattern:
+    console: "%d{yyyy-MMM-dd HH:mm:ss a} [%t] %-5level %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+# +-----------------------------------------------------
+# |         ALFA PARAMS
+# +-----------------------------------------------------
+   
+alfa: 
+  security:
+    secretName: ${CREDENTIAL_STORE:CredentialStore}
+  props:
+    zone-time: America/Bogota
+  services:
+    mediatorosb:
+      port: 7060      
+      url:
+        setrecordregistryqueuemessage: http://${DNS_LB:localhost}:${alfa.services.mediatorosb.port}/mediatorosb/api/v1/setRecordRegistryQueueMessage
+ 

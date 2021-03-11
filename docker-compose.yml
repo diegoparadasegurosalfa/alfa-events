@@ -1,0 +1,31 @@
+# -------------------------------------------------------------------
+# - DOCKER COMPOSE FILE
+# - AUTOR: ian.beltran@segurosalfa.com.co
+# - FECHA: 07-Enero-2021
+# - DESCRIPCION: Docker compose file que permite la
+# -              creacion de 1 contendor para el servicio de 
+# -              mediatorosb
+# -------------------------------------------------------------------
+
+version: '3.7'
+services:
+  notifications-service:
+    image: mediatorosb-service:latest
+    container_name: mediatorosb-service
+    hostname: mediatorosb-service
+    restart: always
+    ports:
+      - 7060:7060
+    networks:
+      - backend
+    environment:
+      - SERVICE_PORTS=7060
+      - SPRING_PROFILES_ACTIVE=stg
+      - AWS_REGION=us-east-2
+      - AWS_ACCESS_KEY_ID=<replace_your_access_key_id>
+      - AWS_SECRET_ACCESS_KEY=<replace_your_secret_access_key>
+volumes:
+  data_convenios:
+networks:
+  backend:
+    external: true

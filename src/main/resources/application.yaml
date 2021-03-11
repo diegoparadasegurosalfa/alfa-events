@@ -1,0 +1,19 @@
+# +-----------------------------------------------------
+# |         SERVER CONFIG
+# +-----------------------------------------------------
+server:
+  port: 7090
+  servlet:
+    context-path: /
+    session:
+      cookie:
+        name: UISESSION    
+          
+# +-----------------------------------------------------
+# |         SPRING CONFIG
+# +-----------------------------------------------------
+spring:
+  application:
+    name: alfa-events
+  profiles:
+    active: "@activatedProperties@"

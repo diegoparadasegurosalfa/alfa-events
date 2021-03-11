@@ -1,0 +1,19 @@
+# +-----------------------------------------------------
+# |         SERVER CONFIG
+# +-----------------------------------------------------
+server:
+  port: 7060
+  servlet:
+    context-path: /
+    session:
+      cookie:
+        name: UISESSION    
+          
+# +-----------------------------------------------------
+# |         SPRING CONFIG
+# +-----------------------------------------------------
+spring:
+  application:
+    name: alfa-mediatorosb
+  profiles:
+    active: "@activatedProperties@"
