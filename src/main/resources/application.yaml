@@ -2,7 +2,7 @@
 # |         SERVER CONFIG
 # +-----------------------------------------------------
 server:
-  port: 7090
+  port: 8091
   servlet:
     context-path: /
     session:

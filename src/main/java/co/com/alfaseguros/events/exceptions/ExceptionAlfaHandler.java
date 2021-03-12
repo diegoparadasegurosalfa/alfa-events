@@ -30,6 +30,14 @@ public class ExceptionAlfaHandler {
 		return new ResponseEntity<>(setRecordEventResponse, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
+	@ExceptionHandler(BussinessExceptionAlfa.class)
+	public ResponseEntity<SetRecordEventResponse> bussinessExceptionAlfaHandling(BussinessExceptionAlfa exception, WebRequest request){
+		SetRecordEventResponse setRecordEventResponse = new SetRecordEventResponse();
+		setRecordEventResponse.setStatusCode(String.valueOf(exception.getCode()));
+		setRecordEventResponse.setStatusDesc(exception.getMessage());
+		return new ResponseEntity<>(setRecordEventResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
 	public ResponseEntity<SetRecordEventResponse> methodArgumentNotValidExceptionHandling(MethodArgumentNotValidException exception, WebRequest request){

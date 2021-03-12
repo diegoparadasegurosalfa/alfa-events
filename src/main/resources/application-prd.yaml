@@ -15,8 +15,6 @@ logging:
 # +-----------------------------------------------------
    
 alfa: 
-  security:
-    secretName: ${CREDENTIAL_STORE:CredentialStore}
   props:
     zone-time: America/Bogota
   services:

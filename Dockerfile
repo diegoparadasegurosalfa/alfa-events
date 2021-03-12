@@ -27,7 +27,7 @@ ENV APP_HOME="/app" \
 	UPLOAD_DIR="/tmp/upload" \
 	JAVA_OPTS="" \
 	SSL_OSB="/app/ssl" \
-	HTTP_PORT=7060
+	HTTP_PORT=8091
 
 # Creando directorios de la aplicacion y de carga temporal de los archivos
 RUN mkdir $APP_HOME && mkdir -p $UPLOAD_DIR && mkdir -p $SSL_OSB

@@ -12,7 +12,7 @@ public class HealthCheckController {
 	
 	@GetMapping("/")
 	public ResponseEntity<String> healthCheck() {
-		String message = String.format("Service mediatorOSB is up! %s", LocalDateTime.now());
+		String message = String.format("Service events is up! %s", LocalDateTime.now());
 		return new ResponseEntity<>(message, HttpStatus.OK);
 	}
 

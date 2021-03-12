@@ -2,8 +2,6 @@ package co.com.alfaseguros.events.controller;
 
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,12 +25,10 @@ import lombok.RequiredArgsConstructor;
 public class EventsController {
 	
 	@Qualifier("setRecordEventServiceExecution")
-	private final ServiceExecution<SetRecordEventRequest, SetRecordEventResponse> setRecordEventServiceExecution;
-	private final Logger log = LoggerFactory.getLogger(EventsController.class);	
-	
+	private final ServiceExecution<SetRecordEventRequest, SetRecordEventResponse> setRecordEventServiceExecution;	
 	
 	@PostMapping("/setrecordevent")
-	public ResponseEntity<SetRecordEventResponse> setEvent(@RequestBody(required = true) @Valid SetRecordEventRequest setRecordEventRequest) throws ExceptionAlfa {
+	public ResponseEntity<SetRecordEventResponse> setRecordEvent(@RequestBody(required = true) @Valid SetRecordEventRequest setRecordEventRequest) throws ExceptionAlfa {
 		return new ResponseEntity<>(setRecordEventServiceExecution.processOperation(setRecordEventRequest), HttpStatus.CREATED);
 	}
 }

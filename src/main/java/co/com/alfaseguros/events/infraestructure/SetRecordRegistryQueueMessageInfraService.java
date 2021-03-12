@@ -17,14 +17,13 @@ import co.com.alfaseguros.events.domain.services.setrecordregistryqueuemessage.S
 import co.com.alfaseguros.events.domain.services.setrecordregistryqueuemessage.SetRecordRegistryQueueMessageResponse;
 import co.com.alfaseguros.events.exceptions.ExceptionAlfa;
 import co.com.alfaseguros.events.exceptions.ServerExceptionAlfa;
+import lombok.RequiredArgsConstructor;
 
 @Component("setRecordRegistryQueueMessageInfraService")
+@RequiredArgsConstructor
 public class SetRecordRegistryQueueMessageInfraService implements InfraService<SetRecordRegistryQueueMessageRequest, SetRecordRegistryQueueMessageResponse> {
 		
-	@Autowired
-	private RestTemplate template;
-	@Autowired
-	private RestTemplateBuilder builder;
+	private final RestTemplate template;
 	
 	@Value("${alfa.services.mediatorosb.url.setrecordregistryqueuemessage}")
 	private String filteredUrl;
@@ -32,8 +31,6 @@ public class SetRecordRegistryQueueMessageInfraService implements InfraService<S
 	@Override
 	public ResponseEntity<SetRecordRegistryQueueMessageResponse> callService(SetRecordRegistryQueueMessageRequest data) throws ExceptionAlfa {
 		try {
-			this.template = builder.build();
-					
 			HttpHeaders headers = new HttpHeaders();
 		    headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 		    headers.setContentType(MediaType.APPLICATION_JSON);
