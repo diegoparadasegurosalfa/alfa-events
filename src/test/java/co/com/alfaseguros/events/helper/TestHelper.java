@@ -75,6 +75,13 @@ public class TestHelper {
 		return setRecordEventResponse;
 	}
 	
+	public static SetRecordEventResponse simulateFailedSetRecordEventResponse() {		
+		SetRecordEventResponse setRecordEventResponse = new SetRecordEventResponse();
+		setRecordEventResponse.setStatusCode("700");
+		setRecordEventResponse.setStatusDesc("Addition no es un valor valido");
+		return setRecordEventResponse;
+	}
+	
 	public static ResponseEntity<SetRecordRegistryQueueMessageResponse> simulateSucessSetRecordRegistryQueueMessageResponse() {		
 		SetRecordRegistryQueueMessageResponse setRecordRegistryQueueMessageResponse = new SetRecordRegistryQueueMessageResponse();
 		setRecordRegistryQueueMessageResponse.setStatusCode("201");
@@ -86,7 +93,7 @@ public class TestHelper {
 		SetRecordRegistryQueueMessageResponse setRecordRegistryQueueMessageResponse = new SetRecordRegistryQueueMessageResponse();
 		setRecordRegistryQueueMessageResponse.setStatusCode("500");
 		setRecordRegistryQueueMessageResponse.setStatusDesc("Ha ocurrido un error en la invocación");
-		return new ResponseEntity<SetRecordRegistryQueueMessageResponse>(setRecordRegistryQueueMessageResponse, HttpStatus.CREATED);
+		return new ResponseEntity<SetRecordRegistryQueueMessageResponse>(setRecordRegistryQueueMessageResponse, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	public static SetRecordEventRequest getSetRecordEventRequest() {		
@@ -101,8 +108,9 @@ public class TestHelper {
 	public static SetRecordEventRequest getBadSetRecordEventRequest() {		
 		SetRecordEventRequest setRecordEventRequest = new SetRecordEventRequest();
 		setRecordEventRequest.setSource("alfa-payments");
-		setRecordEventRequest.setAction("Add");
+		setRecordEventRequest.setAction("Addition");
 		setRecordEventRequest.setTableName("transactions");
+		setRecordEventRequest.setParametersList(getGenericParameters());
 		return setRecordEventRequest;
 	}
 	
