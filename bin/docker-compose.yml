@@ -4,22 +4,22 @@
 # - FECHA: 07-Enero-2021
 # - DESCRIPCION: Docker compose file que permite la
 # -              creacion de 1 contendor para el servicio de 
-# -              mediatorosb
+# -              events
 # -------------------------------------------------------------------
 
 version: '3.7'
 services:
   notifications-service:
-    image: mediatorosb-service:latest
-    container_name: mediatorosb-service
-    hostname: mediatorosb-service
+    image: events-service:latest
+    container_name: events-service
+    hostname: events-service
     restart: always
     ports:
-      - 7060:7060
+      - 8091:8091
     networks:
       - backend
     environment:
-      - SERVICE_PORTS=7060
+      - SERVICE_PORTS=8091
       - SPRING_PROFILES_ACTIVE=stg
       - AWS_REGION=us-east-2
       - AWS_ACCESS_KEY_ID=<replace_your_access_key_id>

@@ -8,7 +8,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import co.com.alfaseguros.events.domain.entities.ApplicationLog;
+import co.com.alfaseguros.events.domain.entities.Detail;
 import co.com.alfaseguros.events.domain.generic.Parameter;
+import co.com.alfaseguros.events.domain.services.setapplicationlog.SetApplicationLogRequest;
 import co.com.alfaseguros.events.domain.services.setrecordevent.SetRecordEventRequest;
 import co.com.alfaseguros.events.domain.services.setrecordevent.SetRecordEventResponse;
 import co.com.alfaseguros.events.domain.services.setrecordregistryqueuemessage.SetRecordRegistryQueueMessageRequest;
@@ -68,11 +75,34 @@ public class TestHelper {
 		return parametersList;
 	}
 
+	public static List<Detail> getEntityDetail() {		
+		List<Detail> detailList = new ArrayList<>();
+		for (int i=0;i<2; i++) {
+			Detail detail = new Detail();
+			switch (i) {
+			case 0:
+				detail.setKey("TIPO_IDENTIFICACION");
+				detail.setValue("CC");
+				break;
+			case 1:
+				detail.setKey("IDENTIFICACION");
+				detail.setValue("123454324");
+				break;
+			}
+			detailList.add(detail);
+		}
+		return detailList;
+	}
+	
 	public static SetRecordEventResponse simulateSucessSetRecordEventResponse() {		
 		SetRecordEventResponse setRecordEventResponse = new SetRecordEventResponse();
 		setRecordEventResponse.setStatusCode("201");
 		setRecordEventResponse.setStatusDesc("Transacción exiotsa");
 		return setRecordEventResponse;
+	}
+	
+	public static Void simulateVoidResponse() {
+		return null;
 	}
 	
 	public static SetRecordEventResponse simulateFailedSetRecordEventResponse() {		
@@ -105,6 +135,77 @@ public class TestHelper {
 		return setRecordEventRequest;
 	}
 	
+	public static SetApplicationLogRequest getSetApplicationLogRequest() throws JsonMappingException, JsonProcessingException {		
+		ObjectMapper objectMapper = new ObjectMapper();
+		SetApplicationLogRequest setApplicationLogRequest = objectMapper.readValue(getSQSSetApplicationLogRequest(), SetApplicationLogRequest.class);
+		return setApplicationLogRequest;
+	}
+	
+	public static SetApplicationLogRequest getBadSetApplicationLogRequest() throws JsonMappingException, JsonProcessingException {		
+		ObjectMapper objectMapper = new ObjectMapper();
+		SetApplicationLogRequest setApplicationLogRequest = objectMapper.readValue(getNotCompletedSQSSetApplicationLogRequest(), SetApplicationLogRequest.class);
+		return setApplicationLogRequest;
+	}
+	
+	public static String getSQSSetApplicationLogRequest() {		
+		String message = " {\r\n"
+				+ "  \"UserName\": \"dparada1\",\r\n"
+				+ "  \"DateTime\": \"2021-03-25T17:59:31\",\r\n"
+				+ "  \"Ip\": \"186.84.91.22\",\r\n"
+				+ "  \"Channel\": \"load-attach-policy\",\r\n"
+				+ "  \"Detail\": [\r\n"
+				+ "    {\r\n"
+				+ "      \"Key\": \"TIPO_IDENTIFICACION\",\r\n"
+				+ "      \"Value\": \"CC\"\r\n"
+				+ "    },\r\n"
+				+ "    {\r\n"
+				+ "      \"Key\": \"IDENTIFICACION\",\r\n"
+				+ "      \"Value\": \"1023003712\"\r\n"
+				+ "    }\r\n"
+				+ "  ]\r\n"
+				+ "}";
+		return message;
+	}
+	
+	public static String getBadSQSSetApplicationLogRequest() {		
+		String message = " {\r\n"
+				+ "  \"UserName\": \"\",\r\n"
+				+ "  \"DateTime\": \"2021-03-25T17:59:31\",\r\n"
+				+ "  \"Ip\": \"186.84.91.22\",\r\n"
+				+ "  \"Channel\": \"load-attach-policy\",\r\n"
+				+ "  \"Detail\": [\r\n"
+				+ "    {\r\n"
+				+ "      \"Key\": \"TIPO_IDENTIFICACION\",\r\n"
+				+ "      \"Value\": \"CC\"\r\n"
+				+ "    },\r\n"
+				+ "    {\r\n"
+				+ "      \"Key\": \"IDENTIFICACION\",\r\n"
+				+ "      \"Value\": \"1023003712\"\r\n"
+				+ "    }\r\n"
+				+ "  ]\r\n"
+				+ "";
+		return message;
+	}
+	
+	public static String getNotCompletedSQSSetApplicationLogRequest() {		
+		String message = " {\r\n"
+				+ "  \"UserName\": \"\",\r\n"
+				+ "  \"DateTime\": \"2021-03-25T17:59:31\",\r\n"
+				+ "  \"Ip\": \"186.84.91.22\",\r\n"
+				+ "  \"Detail\": [\r\n"
+				+ "    {\r\n"
+				+ "      \"Key\": \"TIPO_IDENTIFICACION\",\r\n"
+				+ "      \"Value\": \"CC\"\r\n"
+				+ "    },\r\n"
+				+ "    {\r\n"
+				+ "      \"Key\": \"IDENTIFICACION\",\r\n"
+				+ "      \"Value\": \"1023003712\"\r\n"
+				+ "    }\r\n"
+				+ "  ]\r\n"
+				+ "}";
+		return message;
+	}	
+	
 	public static SetRecordEventRequest getBadSetRecordEventRequest() {		
 		SetRecordEventRequest setRecordEventRequest = new SetRecordEventRequest();
 		setRecordEventRequest.setSource("alfa-payments");
@@ -121,6 +222,25 @@ public class TestHelper {
 		setRecordRegistryQueueMessageRequest.setTableName("transactions");
 		setRecordRegistryQueueMessageRequest.setParametersList(getGenericParameters());
 		return setRecordRegistryQueueMessageRequest;
+	}
+	
+	public static ApplicationLog getApplicationLog() {		
+		ApplicationLog applicationLog = new ApplicationLog();
+		applicationLog.setChannel("load-attach-policy");
+		applicationLog.setDateTime("2021-03-25T17:59:31");
+		applicationLog.setIp("186.84.91.22");
+		applicationLog.setUserName("dparada1");
+		applicationLog.setDetail(getEntityDetail());
+		return applicationLog;
+	}
+	
+	public static ApplicationLog getBadApplicationLog() {		
+		ApplicationLog applicationLog = new ApplicationLog();
+		applicationLog.setDateTime("2021-03-25T17:59:31");
+		applicationLog.setIp("186.84.91.22");
+		applicationLog.setUserName("dparada1");
+		applicationLog.setDetail(getEntityDetail());
+		return applicationLog;
 	}
 	
 	public static SetRecordRegistryQueueMessageRequest getBadSetRecordRegistryQueueMessageRequest() {		

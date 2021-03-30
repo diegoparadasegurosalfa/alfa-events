@@ -5,6 +5,7 @@ public enum MessageResponseEnum {
 	OK (201, "Transaccion exitosa"),
 	SYSTEM_ERROR (500, "Error interno del sistema"),
     SERVICE_CALL_ERROR (700, "Error en la respuesta del Backend"), 
+    DATABASE_CALL_ERROR (701, "Error en el registro de los datos"),
     DATA_VALIDATION (400, "Petición incorrecta");  
     
 	private final int code;   

@@ -1,0 +1,51 @@
+{
+  "Source": "alfa-payments",
+  "Action": "Add",
+  "TableName": "paymentSchedule",
+  "ParametersList": [
+    {
+      "Key": "policyId",
+      "Value": "50004PD011013577779"
+    },
+    {
+      "Key": "multipleScheduleSeq",
+      "Value": "1"
+    },
+    {
+      "Key": "multipleScheduleCount",
+      "Value": "10160.14"
+    },
+    {
+      "Key": "policyValidityNumber",
+      "Value": "54"
+    },
+    {
+      "Key": "retries",
+      "Value": "12"
+    },
+    {
+      "Key": "scheduleDt",
+      "Value": "2021-03-01T15:06:01"
+    },
+    {
+      "Key": "scheduleStatus",
+      "Value": "CANCELLED"
+    },
+    {
+      "Key": "startDt",
+      "Value": "2021-03-01T15:06:01"
+    },
+    {
+      "Key": "validityFee",
+      "Value": "12343.89"
+    },
+    {
+      "Key": "withDelayedRetry",
+      "Value": "true"
+    },
+    {
+      "Key": "paymentscheduleId",
+      "Value": "qwertyuytrewqwert"
+    }
+  ]
+}

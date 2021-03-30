@@ -3,9 +3,9 @@
 # +-----------------------------------------------------
 logging:
   level:
-    org.springframework.web: DEBUG
-    org.springframework.web.client.RestTemplate: DEBUG    
-    co.com.alfaseguros: DEBUG
+    org.springframework.web: INFO
+    org.springframework.web.client.RestTemplate: INFO    
+    co.com.alfaseguros: INFO
   pattern:
     console: "%d{yyyy-MMM-dd HH:mm:ss a} [%t] %-5level %logger{36} - %msg%n"
     file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
@@ -13,7 +13,13 @@ logging:
 # +-----------------------------------------------------
 # |         ALFA PARAMS
 # +-----------------------------------------------------
-   
+
+#cloud:
+#  aws:
+#    region:
+#      static: ${REGION:us-east-2}
+#      auto: false
+
 alfa: 
   props:
     zone-time: America/Bogota
@@ -22,4 +28,6 @@ alfa:
       port: 7060      
       url:
         setpolicyeventqueue: http://${DNS_LB:localhost}:${alfa.services.mediatorosb.port}/mediatorosb/api/v1/setRecordRegistryQueueMessage
- 
+  queues:
+    auditinpolicyquery:
+      name: ${NAME_QUEUES_POLICY_QUERY:audit-in-policy-query}

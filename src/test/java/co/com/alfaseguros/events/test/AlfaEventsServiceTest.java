@@ -1,5 +1,6 @@
 package co.com.alfaseguros.events.test;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -14,16 +15,25 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+
 import co.com.alfaseguros.events.AlfaEventsApplication;
+import co.com.alfaseguros.events.domain.entities.ApplicationLog;
 import co.com.alfaseguros.events.domain.enums.MessageResponseEnum;
+import co.com.alfaseguros.events.domain.services.setapplicationlog.SetApplicationLogRequest;
 import co.com.alfaseguros.events.domain.services.setrecordevent.SetRecordEventRequest;
 import co.com.alfaseguros.events.domain.services.setrecordevent.SetRecordEventResponse;
 import co.com.alfaseguros.events.domain.services.setrecordregistryqueuemessage.SetRecordRegistryQueueMessageRequest;
 import co.com.alfaseguros.events.domain.services.setrecordregistryqueuemessage.SetRecordRegistryQueueMessageResponse;
 import co.com.alfaseguros.events.exceptions.BussinessExceptionAlfa;
 import co.com.alfaseguros.events.exceptions.ExceptionAlfa;
+import co.com.alfaseguros.events.exceptions.ServerExceptionAlfa;
 import co.com.alfaseguros.events.helper.TestHelper;
 import co.com.alfaseguros.events.infraestructure.InfraService;
+import co.com.alfaseguros.events.repository.RepoService;
+import co.com.alfaseguros.events.services.SaveApplicationLogServiceExecution;
+import co.com.alfaseguros.events.services.ServiceExecution;
 import co.com.alfaseguros.events.services.SetRecordEventServiceExecution;
 import co.com.alfaseguros.events.utils.Transformation;
 
@@ -44,10 +54,21 @@ class AlfaEventsServiceTest {
 	@Qualifier("setRecordEventTransformation")
 	private Transformation<SetRecordRegistryQueueMessageResponse, SetRecordEventResponse> setRecordEventransformation;
 	
+	@Mock
+	@Qualifier("applicationLogRepoService")
+	private RepoService<ApplicationLog> applicationLogRepoService;
+	
+	@Mock
+	@Qualifier("setApplicationLogTransformation")
+	private Transformation<SetApplicationLogRequest, ApplicationLog> setApplicationLogTransformation;
+	
 	private SetRecordEventServiceExecution setRecordEventServiceExecution;
 	
+	private SaveApplicationLogServiceExecution saveApplicationLogServiceExecution;
+	
+	
 	@BeforeEach
-	public void setUp() throws ExceptionAlfa {
+	public void setUp() throws ExceptionAlfa, JsonMappingException, JsonProcessingException {
 		Mockito.when(this.setRecordRegistryQueueMessageTransformation.transformStructure(TestHelper.getSetRecordEventRequest()))
 		   .thenReturn(TestHelper.getSetRecordRegistryQueueMessageRequest());
 		Mockito.when(this.setRecordRegistryQueueMessageTransformation.transformStructure(TestHelper.getBadSetRecordEventRequest()))
@@ -60,8 +81,13 @@ class AlfaEventsServiceTest {
 		   .thenReturn(TestHelper.simulateSucessSetRecordEventResponse());
 		Mockito.when(this.setRecordEventransformation.transformStructure(TestHelper.simulateFailedSetRecordRegistryQueueMessageResponse().getBody()))
 		   .thenReturn(TestHelper.simulateFailedSetRecordEventResponse());
+		Mockito.when(this.setApplicationLogTransformation.transformStructure(TestHelper.getSetApplicationLogRequest()))
+		   .thenReturn(TestHelper.getApplicationLog());
+		Mockito.when(this.setApplicationLogTransformation.transformStructure(TestHelper.getBadSetApplicationLogRequest()))
+		   .thenReturn(TestHelper.getBadApplicationLog());
 		MockitoAnnotations.initMocks(this.getClass());
 		this.setRecordEventServiceExecution = new SetRecordEventServiceExecution(this.setRecordRegistryQueueMessageInfraService, this.setRecordRegistryQueueMessageTransformation, this.setRecordEventransformation);
+		this.saveApplicationLogServiceExecution = new SaveApplicationLogServiceExecution(this.applicationLogRepoService, this.setApplicationLogTransformation);
 	}	
 	
 	@Test
@@ -74,5 +100,17 @@ class AlfaEventsServiceTest {
 	void whenSystemErrorSetRecordEventRequest() throws ExceptionAlfa {	
 		ExceptionAlfa exception = assertThrows(BussinessExceptionAlfa.class, () -> setRecordEventServiceExecution.processOperation(TestHelper.getBadSetRecordEventRequest()));
 		assertEquals(MessageResponseEnum.SERVICE_CALL_ERROR.getCode(),exception.getCode());
+	}
+	
+	@Test
+	void whenValidSuccessSetApplicationLogRequest() throws ExceptionAlfa {		
+		 assertDoesNotThrow(() -> saveApplicationLogServiceExecution.processOperation(TestHelper.getSetApplicationLogRequest()));
+	}
+	
+	@Test
+	void whenServerErrorSetApplicationLogRequest() throws ExceptionAlfa {
+		Mockito.doThrow(new ServerExceptionAlfa(MessageResponseEnum.DATABASE_CALL_ERROR, null)).when(this.applicationLogRepoService).addRespositoryElement(Mockito.any());
+		ExceptionAlfa exception = assertThrows(ServerExceptionAlfa.class, () -> saveApplicationLogServiceExecution.processOperation(TestHelper.getBadSetApplicationLogRequest()));
+		assertEquals(MessageResponseEnum.DATABASE_CALL_ERROR.getCode(),exception.getCode());
 	}
 }

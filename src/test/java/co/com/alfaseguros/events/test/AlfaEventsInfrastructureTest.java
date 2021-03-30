@@ -47,7 +47,7 @@ class AlfaEventsInfrastructureTest {
 	@BeforeEach
 	public void setUp() throws ExceptionAlfa {
 		MockitoAnnotations.initMocks(this.getClass());
-		this.setRecordRegistryQueueMessageInfraService = new SetRecordRegistryQueueMessageInfraService(template);
+		this.setRecordRegistryQueueMessageInfraService = new SetRecordRegistryQueueMessageInfraService(this.template);
 		ReflectionTestUtils.setField(this.setRecordRegistryQueueMessageInfraService, "filteredUrl", this.filteredUrl);
 	}
 	

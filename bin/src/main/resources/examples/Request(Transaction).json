@@ -1,0 +1,43 @@
+{
+  "Source": "alfa-payments",
+  "Action": "Add",
+  "TableName": "transactions",
+  "ParametersList": [
+    {
+      "Key": "policyId",
+      "Value": "50004PD011013577779"
+    },
+                {
+      "Key": "payId",
+      "Value": "qwertytrew2345654ert"
+    },
+    {
+      "Key": "amt",
+      "Value": "10160.14"
+    },
+    {
+      "Key": "externalUpdateId",
+      "Value": "54"
+    },
+    {
+      "Key": "policyValidityNumber",
+      "Value": "12"
+    },
+    {
+      "Key": "statusCode",
+      "Value": "0"
+    },
+    {
+      "Key": "statusDesc",
+      "Value": "CANCELLED"
+    },
+    {
+      "Key": "transactionTime",
+      "Value": "2021-03-01T15:06:01"
+    },
+    {
+      "Key": "paymentscheduleId",
+      "Value": "asdfghjhgfds"
+    }
+  ]
+}

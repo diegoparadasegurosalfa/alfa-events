@@ -13,7 +13,13 @@ logging:
 # +-----------------------------------------------------
 # |         ALFA PARAMS
 # +-----------------------------------------------------
-   
+
+#cloud:
+#  aws:
+#    region:
+#      static: ${REGION:us-east-2}
+#      auto: false
+
 alfa: 
   props:
     zone-time: America/Bogota
@@ -22,4 +28,6 @@ alfa:
       port: 7060      
       url:
         setpolicyeventqueue: http://${DNS_LB:localhost}:${alfa.services.mediatorosb.port}/mediatorosb/api/v1/setRecordRegistryQueueMessage
- 
+  queues:
+    auditinpolicyquery:
+      name: ${NAME_QUEUES_POLICY_QUERY:audit-in-policy-query}

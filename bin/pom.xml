@@ -6,70 +6,49 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.3.3.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
 	<groupId>co.com.alfaseguros.mediatorosb</groupId>
-	<artifactId>alfa-mediatorosb</artifactId>
+	<artifactId>alfa-events</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>alfa-mediatorosb</name>
-	<description>Componente encargado de realziar la mediacion entre el BUS y los componentes del AWS</description>
-	
+	<name>alfa-events</name>
+	<description>Componente encargado de gestionar los eventos internos dento de la VPC de AWS</description>
 	<organization>
 		<name>Seguros Alfa</name>
 		<url>https://www.segurosalfa.com.co/</url>
 	</organization>
 	
 	<!-- 
-		Developers Teams :P 
+		Development team
 	-->
 	<developers>
 		<developer>
-			<id>ibaletran427</id>
-			<name>Ian Beltran</name>
-			<email>ian.beltran@linexperts.com</email>
-			<url>https://www.segurosalfa.com.co/</url>
+			<id>marsas1438</id>
+			<name>Marco Sastoque</name>
+			<email>marco.sastoque@segurosalfa.com.co</email>
+			<url>https://www.segurosalfa.com.co</url>
 			<organization>Seguros Alfa</organization>
 			<organizationUrl>https://www.segurosalfa.com.co/</organizationUrl>
 			<roles>
 				<role>Desarrollador</role>
 			</roles>
 			<timezone>America/Bogota</timezone>
-			<properties>
-				<picture>http://www.oorsprong.org/WebSamples.CountryInfo/Images/Colombia.jpg</picture>
-			</properties>
 		</developer>
 	</developers>
 	
 	<!-- 
-		Information of git repository
+		Git repository
 	-->
 	<scm>
-		<url>https://github.com/wortiz1027/alfa-mediatorosb</url>
-		<connection>scm:git:git@github.com:wortiz1027/alfa-mediatorosb.git</connection>
-		<developerConnection>scm:git:git@github.com:wortiz1027/alfa-mediatorosb.git</developerConnection>
+		<url>https://github.com/wortiz1027/alfa-events</url>
+		<connection>scm:git:git@github.com:wortiz1027/alfa-events.git</connection>
+		<developerConnection>scm:git:git@github.com:wortiz1027/alfa-events.git</developerConnection>
 		<tag>master</tag>
 	</scm>
 	
 	<!-- 
-		Information CI Server 
+		Environment profiles
 	-->
-	<ciManagement>
-		<system>jenkins</system>
-		<url>http://centos-cicd2:8080/</url>
-		<notifiers>
-			<notifier>
-				<type>mail</type>
-				<sendOnError>true</sendOnError>
-				<sendOnFailure>true</sendOnFailure>
-				<sendOnSuccess>false</sendOnSuccess>
-				<sendOnWarning>false</sendOnWarning>
-				<configuration>
-					<address>jenkins@localhost.com.co</address>
-				</configuration>
-			</notifier>
-		</notifiers>
-	</ciManagement>
-	
 	<profiles>
 		<profile>
 			<id>dev</id>
@@ -100,6 +79,9 @@
 		</profile>
 	</profiles>
 	
+	<!-- 
+		Development properties
+	-->
 	<properties>
 		<java.version>1.8</java.version>
 		<aws.sdk.version>2.14.23</aws.sdk.version>		
@@ -112,7 +94,7 @@
 	</properties>
 	
 	<!-- 
-		Manager for each group of dependecies aws, spring cloud 
+		Manager for each group of dependecies AWS, Spring-Cloud 
 	-->
 	<dependencyManagement>
 	  <dependencies>
@@ -127,23 +109,29 @@
 	</dependencyManagement>
 
 	<dependencies>
+	
 		<!-- 
-			aws dependencies 
+			AWS dependencies 
 		-->
 		<dependency>
 		  <groupId>software.amazon.awssdk</groupId>
 		  <artifactId>aws-sdk-java</artifactId>
 		  <version>${aws.sdk.version}</version>
 		</dependency>
+		
+		<dependency>
+		    <groupId>software.amazon.awssdk</groupId>
+		    <artifactId>secretsmanager</artifactId>		    
+		</dependency>
 	
 		<!-- 
-			Spring Dependencies 
+			Spring dependencies 
 		-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
+		
 		<dependency> 
 		    <groupId>org.springframework.boot</groupId> 
 		    <artifactId>spring-boot-starter-validation</artifactId> 
@@ -155,10 +143,6 @@
 			<optional>true</optional>
 		</dependency>
 		
-		<dependency>
-		    <groupId>software.amazon.awssdk</groupId>
-		    <artifactId>secretsmanager</artifactId>		    
-		</dependency>
 		<dependency>
 		    <groupId>com.fasterxml.jackson.core</groupId>
 		    <artifactId>jackson-databind</artifactId>		    
@@ -186,6 +170,9 @@
 			</exclusions>
 		</dependency>
 		
+		<!-- 
+			Testing dependencies 
+		-->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
@@ -200,7 +187,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>mediatorosb-service</finalName>
+		<finalName>events-service</finalName>
 		
 		<resources>
 			<resource>
@@ -288,7 +275,7 @@
 				        <exclude>co/com/alfaseguros/*/utils/**/*</exclude>
 				        <exclude>co/com/alfaseguros/*/exceptions/**/*</exclude>
 				        <exclude>co/com/alfaseguros/*/scheduler/**/*</exclude>
-				        <exclude>co/com/alfaseguros/*/AlfaMediatorosbApplication.class</exclude>
+				        <exclude>co/com/alfaseguros/*/AlfaEventsApplication.class</exclude>
 					</excludes>
 				</configuration>			    
 			    <executions>

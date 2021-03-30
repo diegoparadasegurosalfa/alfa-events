@@ -48,7 +48,6 @@ class AlfaEventsControllerTest {
 			Mockito.when(this.setRecordEventServiceExecution.processOperation(TestHelper.getSetRecordEventRequest()))
 			   .thenReturn(TestHelper.simulateSucessSetRecordEventResponse());
 			MockitoAnnotations.initMocks(this.getClass());
-			
 			Mockito.when(this.setRecordEventServiceExecution.processOperation(TestHelper.getBadSetRecordEventRequest()))
 			   .thenReturn(TestHelper.simulateFailedSetRecordEventResponse());
 			MockitoAnnotations.initMocks(this.getClass());

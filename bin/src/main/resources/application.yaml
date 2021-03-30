@@ -2,7 +2,7 @@
 # |         SERVER CONFIG
 # +-----------------------------------------------------
 server:
-  port: 7060
+  port: 8091
   servlet:
     context-path: /
     session:
@@ -14,6 +14,6 @@ server:
 # +-----------------------------------------------------
 spring:
   application:
-    name: alfa-mediatorosb
+    name: alfa-events
   profiles:
     active: "@activatedProperties@"
