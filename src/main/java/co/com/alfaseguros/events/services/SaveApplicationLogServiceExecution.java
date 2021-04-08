@@ -6,7 +6,8 @@ import org.springframework.stereotype.Service;
 
 import co.com.alfaseguros.events.domain.entities.ApplicationLog;
 import co.com.alfaseguros.events.domain.services.setapplicationlog.SetApplicationLogRequest;
-import co.com.alfaseguros.events.exceptions.ExceptionAlfa;
+//import co.com.alfaseguros.events.exceptions.ExceptionAlfa;
+import co.com.alfaseguros.commons.exceptions.ExceptionAlfa;
 import co.com.alfaseguros.events.repository.RepoService;
 import co.com.alfaseguros.events.utils.Transformation;
 import lombok.RequiredArgsConstructor;

@@ -5,11 +5,14 @@ import java.util.ArrayList;
 import org.springframework.stereotype.Component;
 
 import co.com.alfaseguros.events.domain.entities.ApplicationLog;
-import co.com.alfaseguros.events.domain.enums.MessageResponseEnum;
 import co.com.alfaseguros.events.domain.generic.Detail;
 import co.com.alfaseguros.events.domain.services.setapplicationlog.SetApplicationLogRequest;
-import co.com.alfaseguros.events.exceptions.ExceptionAlfa;
-import co.com.alfaseguros.events.exceptions.ServerExceptionAlfa;
+//import co.com.alfaseguros.events.domain.enums.MessageResponseEnum;
+//import co.com.alfaseguros.events.exceptions.ExceptionAlfa;
+//import co.com.alfaseguros.events.exceptions.ServerExceptionAlfa;
+import co.com.alfaseguros.commons.enums.MessageResponseEnum;
+import co.com.alfaseguros.commons.exceptions.ExceptionAlfa;
+import co.com.alfaseguros.commons.exceptions.bussiness.ServerExceptionAlfa;
 
 @Component("setApplicationLogTransformation")
 public class SetApplicationLogTransformation implements Transformation<SetApplicationLogRequest, ApplicationLog>{

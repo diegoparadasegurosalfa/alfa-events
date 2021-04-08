@@ -1,13 +1,10 @@
 package co.com.alfaseguros.events.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -25,8 +22,8 @@ import org.springframework.web.client.RestTemplate;
 import co.com.alfaseguros.events.AlfaEventsApplication;
 import co.com.alfaseguros.events.domain.enums.MessageResponseEnum;
 import co.com.alfaseguros.events.domain.services.setrecordregistryqueuemessage.SetRecordRegistryQueueMessageResponse;
-import co.com.alfaseguros.events.exceptions.BussinessExceptionAlfa;
-import co.com.alfaseguros.events.exceptions.ExceptionAlfa;
+//import co.com.alfaseguros.events.exceptions.ExceptionAlfa;
+import co.com.alfaseguros.commons.exceptions.ExceptionAlfa;
 import co.com.alfaseguros.events.helper.TestHelper;
 import co.com.alfaseguros.events.infraestructure.SetRecordRegistryQueueMessageInfraService;
 

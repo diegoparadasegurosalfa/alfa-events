@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -22,8 +21,8 @@ import co.com.alfaseguros.events.controller.HealthCheckController;
 import co.com.alfaseguros.events.domain.enums.MessageResponseEnum;
 import co.com.alfaseguros.events.domain.services.setrecordevent.SetRecordEventRequest;
 import co.com.alfaseguros.events.domain.services.setrecordevent.SetRecordEventResponse;
-import co.com.alfaseguros.events.exceptions.BussinessExceptionAlfa;
-import co.com.alfaseguros.events.exceptions.ExceptionAlfa;
+//import co.com.alfaseguros.events.exceptions.ExceptionAlfa;
+import co.com.alfaseguros.commons.exceptions.ExceptionAlfa;
 import co.com.alfaseguros.events.helper.TestHelper;
 import co.com.alfaseguros.events.services.ServiceExecution;
 

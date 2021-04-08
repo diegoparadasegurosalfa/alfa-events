@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -20,20 +19,23 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 import co.com.alfaseguros.events.AlfaEventsApplication;
 import co.com.alfaseguros.events.domain.entities.ApplicationLog;
-import co.com.alfaseguros.events.domain.enums.MessageResponseEnum;
 import co.com.alfaseguros.events.domain.services.setapplicationlog.SetApplicationLogRequest;
 import co.com.alfaseguros.events.domain.services.setrecordevent.SetRecordEventRequest;
 import co.com.alfaseguros.events.domain.services.setrecordevent.SetRecordEventResponse;
 import co.com.alfaseguros.events.domain.services.setrecordregistryqueuemessage.SetRecordRegistryQueueMessageRequest;
 import co.com.alfaseguros.events.domain.services.setrecordregistryqueuemessage.SetRecordRegistryQueueMessageResponse;
-import co.com.alfaseguros.events.exceptions.BussinessExceptionAlfa;
-import co.com.alfaseguros.events.exceptions.ExceptionAlfa;
-import co.com.alfaseguros.events.exceptions.ServerExceptionAlfa;
+//import co.com.alfaseguros.events.domain.enums.MessageResponseEnum;
+//import co.com.alfaseguros.events.exceptions.ExceptionAlfa;
+//import co.com.alfaseguros.events.exceptions.ServerExceptionAlfa;
+//import co.com.alfaseguros.events.exceptions.BussinessExceptionAlfa;
+import co.com.alfaseguros.commons.enums.MessageResponseEnum;
+import co.com.alfaseguros.commons.exceptions.ExceptionAlfa;
+import co.com.alfaseguros.commons.exceptions.bussiness.ServerExceptionAlfa;
+import co.com.alfaseguros.commons.exceptions.bussiness.BussinessExceptionAlfa;
 import co.com.alfaseguros.events.helper.TestHelper;
 import co.com.alfaseguros.events.infraestructure.InfraService;
 import co.com.alfaseguros.events.repository.RepoService;
 import co.com.alfaseguros.events.services.SaveApplicationLogServiceExecution;
-import co.com.alfaseguros.events.services.ServiceExecution;
 import co.com.alfaseguros.events.services.SetRecordEventServiceExecution;
 import co.com.alfaseguros.events.utils.Transformation;
 
@@ -99,7 +101,8 @@ class AlfaEventsServiceTest {
 	@Test
 	void whenSystemErrorSetRecordEventRequest() throws ExceptionAlfa {	
 		ExceptionAlfa exception = assertThrows(BussinessExceptionAlfa.class, () -> setRecordEventServiceExecution.processOperation(TestHelper.getBadSetRecordEventRequest()));
-		assertEquals(MessageResponseEnum.SERVICE_CALL_ERROR.getCode(),exception.getCode());
+		//assertEquals(MessageResponseEnum.SERVICE_CALL_ERROR.getCode(),exception.getCode());
+		assertEquals(MessageResponseEnum.SERVICE_CALL_ERROR.getCode(),exception.getCodError());
 	}
 	
 	@Test
@@ -109,8 +112,10 @@ class AlfaEventsServiceTest {
 	
 	@Test
 	void whenServerErrorSetApplicationLogRequest() throws ExceptionAlfa {
-		Mockito.doThrow(new ServerExceptionAlfa(MessageResponseEnum.DATABASE_CALL_ERROR, null)).when(this.applicationLogRepoService).addRespositoryElement(Mockito.any());
+		//Mockito.doThrow(new ServerExceptionAlfa(MessageResponseEnum.DATABASE_CALL_ERROR, null)).when(this.applicationLogRepoService).addRespositoryElement(Mockito.any());
+		Mockito.doThrow(new ServerExceptionAlfa(MessageResponseEnum.DB_ERROR, null)).when(this.applicationLogRepoService).addRespositoryElement(Mockito.any());
 		ExceptionAlfa exception = assertThrows(ServerExceptionAlfa.class, () -> saveApplicationLogServiceExecution.processOperation(TestHelper.getBadSetApplicationLogRequest()));
-		assertEquals(MessageResponseEnum.DATABASE_CALL_ERROR.getCode(),exception.getCode());
+		//assertEquals(MessageResponseEnum.DB_ERROR .getCode(),exception.getCode());
+		assertEquals(MessageResponseEnum.DB_ERROR .getCode(),exception.getCodError());
 	}
 }
