@@ -2,10 +2,6 @@ package co.com.alfaseguros.events.domain.generic;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;

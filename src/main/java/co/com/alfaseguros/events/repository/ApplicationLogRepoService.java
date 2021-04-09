@@ -5,9 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import co.com.alfaseguros.events.domain.entities.ApplicationLog;
-//import co.com.alfaseguros.events.domain.enums.MessageResponseEnum;
-//import co.com.alfaseguros.events.exceptions.ExceptionAlfa;
-//import co.com.alfaseguros.events.exceptions.ServerExceptionAlfa;
 import co.com.alfaseguros.commons.enums.MessageResponseEnum;
 import co.com.alfaseguros.commons.exceptions.ExceptionAlfa;
 import co.com.alfaseguros.commons.exceptions.bussiness.ServerExceptionAlfa;
@@ -25,7 +22,6 @@ public class ApplicationLogRepoService implements RepoService<ApplicationLog>{
 		try {
 			dynamoDBMapper.save(data);
 		}catch(RuntimeException exception) {
-			//throw new ServerExceptionAlfa(MessageResponseEnum.DATABASE_CALL_ERROR, exception.getMessage());
 			throw new ServerExceptionAlfa(MessageResponseEnum.DB_ERROR, exception.getMessage());
 		}
 	}

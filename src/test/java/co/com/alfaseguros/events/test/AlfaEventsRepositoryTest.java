@@ -15,9 +15,9 @@ import org.springframework.test.context.ContextConfiguration;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 
 import co.com.alfaseguros.events.AlfaEventsApplication;
-import co.com.alfaseguros.events.domain.enums.MessageResponseEnum;
-import co.com.alfaseguros.events.exceptions.ExceptionAlfa;
-import co.com.alfaseguros.events.exceptions.ServerExceptionAlfa;
+import co.com.alfaseguros.commons.enums.MessageResponseEnum;
+import co.com.alfaseguros.commons.exceptions.ExceptionAlfa;
+import co.com.alfaseguros.commons.exceptions.bussiness.ServerExceptionAlfa;
 import co.com.alfaseguros.events.helper.TestHelper;
 import co.com.alfaseguros.events.repository.ApplicationLogRepoService;
 
@@ -47,7 +47,7 @@ class AlfaEventsRepositoryTest {
 	void whenServerExceptionSetRecordRegistryQueueMessageRequest() throws ExceptionAlfa {	
 		Mockito.doThrow(new RuntimeException()).when(this.dynamoDBMapper).save(Mockito.any());
 		ExceptionAlfa exception = assertThrows(ServerExceptionAlfa.class, () -> applicationLogRepoService.addRespositoryElement(TestHelper.getBadApplicationLog()));
-		assertEquals(MessageResponseEnum.DATABASE_CALL_ERROR.getCode(),exception.getCode());
+		assertEquals(MessageResponseEnum.DB_ERROR.getCode(),exception.getCodError());
 	}
 	
 }

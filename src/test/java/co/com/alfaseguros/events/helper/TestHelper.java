@@ -3,9 +3,7 @@ package co.com.alfaseguros.events.helper;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -96,7 +94,7 @@ public class TestHelper {
 	
 	public static SetRecordEventResponse simulateSucessSetRecordEventResponse() {		
 		SetRecordEventResponse setRecordEventResponse = new SetRecordEventResponse();
-		setRecordEventResponse.setStatusCode("201");
+		setRecordEventResponse.setStatusCode("200");
 		setRecordEventResponse.setStatusDesc("Transacción exiotsa");
 		return setRecordEventResponse;
 	}
@@ -107,15 +105,15 @@ public class TestHelper {
 	
 	public static SetRecordEventResponse simulateFailedSetRecordEventResponse() {		
 		SetRecordEventResponse setRecordEventResponse = new SetRecordEventResponse();
-		setRecordEventResponse.setStatusCode("700");
+		setRecordEventResponse.setStatusCode("501");
 		setRecordEventResponse.setStatusDesc("Addition no es un valor valido");
 		return setRecordEventResponse;
 	}
 	
 	public static ResponseEntity<SetRecordRegistryQueueMessageResponse> simulateSucessSetRecordRegistryQueueMessageResponse() {		
 		SetRecordRegistryQueueMessageResponse setRecordRegistryQueueMessageResponse = new SetRecordRegistryQueueMessageResponse();
-		setRecordRegistryQueueMessageResponse.setStatusCode("201");
-		setRecordRegistryQueueMessageResponse.setStatusDesc("Transacción exiotsa");
+		setRecordRegistryQueueMessageResponse.setStatusCode("200");
+		setRecordRegistryQueueMessageResponse.setStatusDesc("Transacción exittsa");
 		return new ResponseEntity<SetRecordRegistryQueueMessageResponse>(setRecordRegistryQueueMessageResponse, HttpStatus.CREATED);
 	}
 	

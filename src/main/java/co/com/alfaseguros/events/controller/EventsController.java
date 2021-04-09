@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import co.com.alfaseguros.events.domain.services.setrecordevent.SetRecordEventRequest;
 import co.com.alfaseguros.events.domain.services.setrecordevent.SetRecordEventResponse;
-//import co.com.alfaseguros.events.exceptions.ExceptionAlfa;
 import co.com.alfaseguros.commons.exceptions.ExceptionAlfa;
 import co.com.alfaseguros.events.services.ServiceExecution;
 import lombok.RequiredArgsConstructor;

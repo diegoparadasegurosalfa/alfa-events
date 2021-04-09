@@ -12,9 +12,6 @@ import org.springframework.web.client.RestTemplate;
 
 import co.com.alfaseguros.events.domain.services.setrecordregistryqueuemessage.SetRecordRegistryQueueMessageRequest;
 import co.com.alfaseguros.events.domain.services.setrecordregistryqueuemessage.SetRecordRegistryQueueMessageResponse;
-//import co.com.alfaseguros.events.domain.enums.MessageResponseEnum;
-//import co.com.alfaseguros.events.exceptions.ExceptionAlfa;
-//import co.com.alfaseguros.events.exceptions.ServerExceptionAlfa;
 import co.com.alfaseguros.commons.enums.MessageResponseEnum;
 import co.com.alfaseguros.commons.exceptions.ExceptionAlfa;
 import co.com.alfaseguros.commons.exceptions.bussiness.ServerExceptionAlfa;

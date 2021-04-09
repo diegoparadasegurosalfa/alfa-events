@@ -12,9 +12,11 @@ import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
+import co.com.alfaseguros.commons.interceptors.LoggingInterceptor;
+
 @Configuration
 @EnableAutoConfiguration
-@ComponentScan("co.com.alfaseguros.events.config")
+@ComponentScan("co.com.alfaseguros.commons.interceptors")
 public class Configurations {
 	
 	@Bean("restTemplate")
