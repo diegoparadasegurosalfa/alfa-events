@@ -14,11 +14,11 @@ logging:
 # |         ALFA PARAMS
 # +-----------------------------------------------------
 
-cloud:
-  aws:
-    region:
-      static: ${REGION:us-east-2}
-      auto: false
+#cloud:
+#  aws:
+#    region:
+#      static: ${REGION:us-east-2}
+#      auto: false
 
 alfa:
   props:

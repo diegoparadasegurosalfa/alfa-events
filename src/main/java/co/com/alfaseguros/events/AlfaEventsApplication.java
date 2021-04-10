@@ -6,13 +6,14 @@ import org.springframework.cloud.aws.autoconfigure.context.ContextStackAutoConfi
 import org.springframework.context.annotation.Import;
 
 import co.com.alfaseguros.commons.aws.DynamoDBConfig;
-import co.com.alfaseguros.commons.aws.SQSConfig;
+import co.com.alfaseguros.commons.aws.KMSConfig;
 import co.com.alfaseguros.commons.exceptions.ExceptionAlfaHandler;
+import lombok.RequiredArgsConstructor;
 
 @SpringBootApplication(exclude = {ContextStackAutoConfiguration.class})
-@Import({DynamoDBConfig.class,SQSConfig.class,ExceptionAlfaHandler.class})
+@Import({DynamoDBConfig.class,ExceptionAlfaHandler.class,KMSConfig.class})
 public class AlfaEventsApplication {
-
+	
 	public static void main(String[] args) {
 		SpringApplication.run(AlfaEventsApplication.class, args);
 	}
