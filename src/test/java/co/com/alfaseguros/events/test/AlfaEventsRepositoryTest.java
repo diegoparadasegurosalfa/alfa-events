@@ -44,6 +44,7 @@ class AlfaEventsRepositoryTest {
 		assertDoesNotThrow(() -> applicationLogRepoService.addRespositoryElement(TestHelper.getApplicationLog()));
 	}
 	
+	@Test
 	void whenServerExceptionSetRecordRegistryQueueMessageRequest() throws ExceptionAlfa {	
 		Mockito.doThrow(new RuntimeException()).when(this.dynamoDBMapper).save(Mockito.any());
 		ExceptionAlfa exception = assertThrows(ServerExceptionAlfa.class, () -> applicationLogRepoService.addRespositoryElement(TestHelper.getBadApplicationLog()));

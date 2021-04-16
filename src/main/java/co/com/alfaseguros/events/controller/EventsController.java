@@ -32,6 +32,4 @@ public class EventsController {
 		return new ResponseEntity<>(setRecordEventServiceExecution.processOperation(setRecordEventRequest), HttpStatus.CREATED);
 	}
 	
-
-	
 }
