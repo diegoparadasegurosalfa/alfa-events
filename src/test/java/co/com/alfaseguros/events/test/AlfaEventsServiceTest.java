@@ -75,10 +75,6 @@ class AlfaEventsServiceTest {
 		   .thenReturn(TestHelper.simulateSucessSetRecordRegistryQueueMessageResponse());
 		Mockito.when(this.setRecordRegistryQueueMessageInfraService.callService(TestHelper.getBadSetRecordRegistryQueueMessageRequest()))
 		   .thenReturn(TestHelper.simulateFailedSetRecordRegistryQueueMessageResponse());
-		Mockito.when(this.setRecordEventransformation.transformStructure(TestHelper.simulateSucessSetRecordRegistryQueueMessageResponse().getBody()))
-		   .thenReturn(TestHelper.simulateSucessSetRecordEventResponse());
-		Mockito.when(this.setRecordEventransformation.transformStructure(TestHelper.simulateFailedSetRecordRegistryQueueMessageResponse().getBody()))
-		   .thenReturn(TestHelper.simulateFailedSetRecordEventResponse());
 		Mockito.when(this.setApplicationLogTransformation.transformStructure(TestHelper.getSetApplicationLogRequest()))
 		   .thenReturn(TestHelper.getApplicationLog());
 		Mockito.when(this.setApplicationLogTransformation.transformStructure(TestHelper.getBadSetApplicationLogRequest()))
@@ -89,9 +85,8 @@ class AlfaEventsServiceTest {
 	}	
 	
 	@Test
-	void whenValidSuccessSetRecordEventRequest() throws ExceptionAlfa {		
-		SetRecordEventResponse response = setRecordEventServiceExecution.processOperation(TestHelper.getSetRecordEventRequest());		
-		assertEquals(String.valueOf(MessageResponseEnum.OK.getCode()), response.getStatusCode());
+	void whenValidSuccessSetRecordEventRequest() throws ExceptionAlfa {	
+		assertDoesNotThrow(() -> setRecordEventServiceExecution.processOperation(TestHelper.getSetRecordEventRequest()));
 	}
 	
 	@Test
