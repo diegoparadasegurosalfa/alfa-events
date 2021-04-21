@@ -92,8 +92,11 @@ public class TestHelper {
 		return detailList;
 	}
 	
-	public static Void simulateSucessSetRecordEventResponse() {		
-		return null;
+	public static SetRecordEventResponse simulateSuccessSetRecordEventResponse() {		
+		SetRecordEventResponse setRecordEventResponse = new SetRecordEventResponse();
+		setRecordEventResponse.setStatusCode("200");
+		setRecordEventResponse.setStatusDesc("Transacción exiotsa");
+		return setRecordEventResponse;
 	}
 	
 	public static Void simulateVoidResponse() {
