@@ -1,13 +1,9 @@
 package co.com.alfaseguros.events.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.cloud.aws.messaging.core.QueueMessagingTemplate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -21,14 +17,13 @@ import com.amazonaws.services.sqs.AmazonSQSAsync;
 import com.amazonaws.services.sqs.AmazonSQSAsyncClientBuilder;
 
 import co.com.alfaseguros.commons.interceptors.LoggingInterceptor;
+import io.awspring.cloud.messaging.core.QueueMessagingTemplate;
 
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan("co.com.alfaseguros.commons.interceptors")
 public class Configurations {
-	
-	private static final Logger LOG = LoggerFactory.getLogger(Configurations.class);
-	
+			
 	@Bean("restTemplate")
     public RestTemplate restTemplate() {		
 		List<ClientHttpRequestInterceptor> interceptors = new ArrayList<>();

@@ -5,24 +5,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import co.com.alfaseguros.events.domain.services.setapplicationlog.SetApplicationLogRequest;
 import co.com.alfaseguros.events.domain.services.setrecordevent.SetRecordEventRequest;
-import co.com.alfaseguros.events.domain.services.setrecordevent.SetRecordEventResponse;
 import co.com.alfaseguros.commons.enums.MessageResponseEnum;
 import co.com.alfaseguros.commons.exceptions.ExceptionAlfa;
 import co.com.alfaseguros.commons.exceptions.bussiness.ClientExceptionAlfa;
 import co.com.alfaseguros.events.services.ServiceExecution;
+import io.awspring.cloud.messaging.listener.SqsMessageDeletionPolicy;
+import io.awspring.cloud.messaging.listener.annotation.SqsListener;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.cloud.aws.messaging.listener.SqsMessageDeletionPolicy;
-import org.springframework.cloud.aws.messaging.listener.annotation.SqsListener;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Component
 @Log4j2

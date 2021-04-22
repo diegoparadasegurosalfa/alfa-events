@@ -2,13 +2,13 @@ package co.com.alfaseguros.events;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.aws.autoconfigure.context.ContextStackAutoConfiguration;
+import io.awspring.cloud.autoconfigure.context.ContextStackAutoConfiguration;
 import org.springframework.context.annotation.Import;
 
 import co.com.alfaseguros.commons.aws.DynamoDBConfig;
 import co.com.alfaseguros.commons.aws.KMSConfig;
 import co.com.alfaseguros.commons.exceptions.ExceptionAlfaHandler;
-import lombok.RequiredArgsConstructor;
+
 
 @SpringBootApplication(exclude = {ContextStackAutoConfiguration.class})
 @Import({DynamoDBConfig.class,ExceptionAlfaHandler.class,KMSConfig.class})
