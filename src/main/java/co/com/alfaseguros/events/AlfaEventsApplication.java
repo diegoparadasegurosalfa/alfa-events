@@ -7,11 +7,12 @@ import org.springframework.context.annotation.Import;
 
 import co.com.alfaseguros.commons.aws.DynamoDBConfig;
 import co.com.alfaseguros.commons.aws.KMSConfig;
+import co.com.alfaseguros.commons.aws.SqsConfig;
 import co.com.alfaseguros.commons.exceptions.ExceptionAlfaHandler;
 
 
 @SpringBootApplication(exclude = {ContextStackAutoConfiguration.class})
-@Import({DynamoDBConfig.class,ExceptionAlfaHandler.class,KMSConfig.class})
+@Import({DynamoDBConfig.class,ExceptionAlfaHandler.class,KMSConfig.class,SqsConfig.class})
 public class AlfaEventsApplication {
 	
 	public static void main(String[] args) {

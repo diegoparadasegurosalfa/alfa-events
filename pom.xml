@@ -110,11 +110,6 @@
 		<skip.unit.test>false</skip.unit.test>
 		<skip.integration.tests>true</skip.integration.tests>	
 		<spring-cloud.version>Hoxton.SR6</spring-cloud.version>
-		<base.ip>localhost</base.ip>
-		<base.port>8091</base.port>
-		<base.threads>2</base.threads>
-		<base.executions>3000</base.executions>
-		<jmeter.plugin.version>3.4.0</jmeter.plugin.version>
 		<encoding>UTF-8</encoding>
 	</properties>
 	
@@ -190,7 +185,7 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		
-		 <dependency>
+		<dependency>
 	        <groupId>io.awspring.cloud</groupId>
 	        <artifactId>spring-cloud-starter-aws-messaging</artifactId>
     	</dependency>
@@ -358,41 +353,6 @@
 			    </executions>
 			</plugin>
 
-			<plugin>
-			    <groupId>com.lazerycode.jmeter</groupId>
-			    <artifactId>jmeter-maven-plugin</artifactId>
-			    <version>${jmeter.plugin.version}</version>
-			    <executions>
-                    <!-- Generate JMeter configuration -->
-                    <execution>
-                    	<?m2e ignore?>
-                        <id>configuration</id>
-                        <goals>
-                            <goal>configure</goal>
-                        </goals>
-                    </execution>
-                    <!-- Run JMeter tests -->
-                    <execution>
-                        <id>jmeter-tests</id>
-                        <goals>
-                            <goal>jmeter</goal>
-                        </goals>
-                    </execution>
-                    <!-- Fail build on errors in test -->
-                    <execution>
-                        <id>jmeter-check-results</id>
-                        <goals>
-                            <goal>results</goal>
-                        </goals>
-                    </execution>
-                </executions>
-			    <configuration>
-			    	<generateReports>true</generateReports>
-					<propertiesUser>
-					</propertiesUser>
-					<propertiesFilesDirectory>src/test/jmeter/${activatedProperties}</propertiesFilesDirectory>
-				</configuration>
-			</plugin>
 		</plugins>
 	</build>
 

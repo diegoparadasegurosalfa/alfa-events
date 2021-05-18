@@ -33,15 +33,4 @@ public class Configurations {
         return template;
     }
 	
-    @Bean
-    public QueueMessagingTemplate queueMessagingTemplate() {
-        return new QueueMessagingTemplate(amazonSQSAsync());
-    }
-
-    @Primary
-    @Bean
-    public AmazonSQSAsync amazonSQSAsync() {
-        return AmazonSQSAsyncClientBuilder.standard().build();
-    }
-	
 }
