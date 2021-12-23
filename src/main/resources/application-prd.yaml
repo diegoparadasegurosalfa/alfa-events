@@ -3,9 +3,9 @@
 # +-----------------------------------------------------
 logging:
   level:
-    org.springframework.web: INFO
-    org.springframework.web.client.RestTemplate: INFO    
-    co.com.alfaseguros: INFO
+    org.springframework.web: ${LEVEL_LOG:INFO}
+    org.springframework.web.client.RestTemplate: ${LEVEL_LOG:INFO}    
+    co.com.alfaseguros: ${LEVEL_LOG:INFO}
   pattern:
     console: "%d{yyyy-MMM-dd HH:mm:ss a} [%t] %-5level %logger{36} - %msg%n"
     file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"

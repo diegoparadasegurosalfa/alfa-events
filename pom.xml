@@ -53,7 +53,7 @@
 		<repository>
 			<id>alfa-group</id>
 			<name>alfa-group</name>
-			<url>http://localhost:8081/repository/alfa-group/</url>
+			<url>http://172.17.0.2:8081/repository/alfa-group/</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
@@ -110,6 +110,11 @@
 		<skip.unit.test>false</skip.unit.test>
 		<skip.integration.tests>true</skip.integration.tests>	
 		<spring-cloud.version>Hoxton.SR6</spring-cloud.version>
+		<base.ip>localhost</base.ip>
+		<base.port>8091</base.port>
+		<base.threads>2</base.threads>
+		<base.executions>3000</base.executions>
+		<jmeter.plugin.version>3.4.0</jmeter.plugin.version>
 		<encoding>UTF-8</encoding>
 	</properties>
 	
@@ -198,8 +203,21 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
+			<version>1.18.22</version>
 			<optional>true</optional>
 		</dependency>
+		
+		<dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.16.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-to-slf4j</artifactId>
+            <version>2.16.0</version>
+        </dependency>
 		
 		<dependency>
 		    <groupId>com.fasterxml.jackson.core</groupId>

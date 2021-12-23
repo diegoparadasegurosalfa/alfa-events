@@ -23,14 +23,26 @@ import io.awspring.cloud.messaging.core.QueueMessagingTemplate;
 @EnableAutoConfiguration
 @ComponentScan("co.com.alfaseguros.commons.interceptors")
 public class Configurations {
-			
+
 	@Bean("restTemplate")
-    public RestTemplate restTemplate() {		
+	public RestTemplate restTemplate() {
 		List<ClientHttpRequestInterceptor> interceptors = new ArrayList<>();
 		interceptors.add(new LoggingInterceptor());
-		RestTemplate template = new RestTemplate(new BufferingClientHttpRequestFactory(new SimpleClientHttpRequestFactory()));
+		RestTemplate template = new RestTemplate(
+				new BufferingClientHttpRequestFactory(new SimpleClientHttpRequestFactory()));
 		template.setInterceptors(interceptors);
-        return template;
-    }
-	
+		return template;
+	}
+
+	@Bean
+	public QueueMessagingTemplate queueMessagingTemplate() {
+		return new QueueMessagingTemplate(this.amazonSQSAsync());
+	}
+
+	@Primary
+	@Bean
+	public AmazonSQSAsync amazonSQSAsync() {
+		return (AmazonSQSAsync) AmazonSQSAsyncClientBuilder.standard().build();
+	}
+
 }
