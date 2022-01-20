@@ -51,9 +51,9 @@
 	-->	
 	<repositories>
 		<repository>
-			<id>alfa-group</id>
-			<name>alfa-group</name>
-			<url>http://172.17.0.2:8081/repository/alfa-group/</url>
+			<id>maven.alfa.repo</id>
+			<name>alfa-releases</name>
+			<url>s3://alfa-dig-mvn-repository/alfa-releases/</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
@@ -264,7 +264,12 @@
 
 	<build>
 		<finalName>events-service</finalName>
-		
+		<extensions>
+			<extension>
+				<groupId>com.github.seahen</groupId>
+				<artifactId>maven-s3-wagon</artifactId>
+			</extension>
+		</extensions>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
