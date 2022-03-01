@@ -16,8 +16,10 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalTime;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 @Component
@@ -45,33 +47,43 @@ public class EventsListener {
 	
 	@SqsListener(value = "${alfa.queues.auditinpaymentregistry.name}", deletionPolicy = SqsMessageDeletionPolicy.ON_SUCCESS)
 	public void setRecordEvent(String message) throws ExceptionAlfa {
-		//log.debug("Received Message {}", message);
+		log.debug("Received Message {}", message);
         ObjectMapper objectMapper = new ObjectMapper();
         try {
         	SetRecordEventRequest setRecordEventRequest = objectMapper.readValue(message, SetRecordEventRequest.class);
+        	
+        	String getValueFromTableName = setRecordEventRequest.getTableName();
 
-			String validityFee = setRecordEventRequest.getParametersList().get(7).getValue();
-			String validityFeeCast = validityFee.replaceAll("\\.([0-9]+)", "").replaceAll("\\,", "");
-			setRecordEventRequest.getParametersList().get(7).setValue(validityFeeCast);
+        	//Validate that the flow of the table is equal to PaymentSchedule to format
+        	if (getValueFromTableName.equals("PaymentSchedule")) {
+        		
+        		//Replace field format validityFee
+        		String validityFee = setRecordEventRequest.getParametersList().get(7).getValue();
+    			String validityFeeCast = validityFee.replaceAll("\\.([0-9]+)", "").replaceAll("\\,", "");
+    			setRecordEventRequest.getParametersList().get(7).setValue(validityFeeCast);
+    			
+    			//Format fields strStartDt and strScheduleDt 
+    			String strStartDt = setRecordEventRequest.getParametersList().get(2).getValue();
+    			String strScheduleDt = setRecordEventRequest.getParametersList().get(6).getValue();
 
-			String strStartDt = setRecordEventRequest.getParametersList().get(2).getValue();
-			String strScheduleDt = setRecordEventRequest.getParametersList().get(6).getValue();
+    			LocalDate dateStartDt = LocalDate.parse(strStartDt);
+    			LocalDate dateScheduleDt = LocalDate.parse(strScheduleDt);
 
+    			LocalTime time = LocalTime.now();
+    			LocalDateTime dateTimeStartDt = dateStartDt.atTime(time);
+    			LocalDateTime dateTimeScheduleDt = dateScheduleDt.atTime(time);
+    			  			
+    			
+    			String startDt = dateTimeStartDt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
+    			String scheduleDt = dateTimeScheduleDt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
 
-			LocalDate dateStartDt = LocalDate.parse(strStartDt);
-			LocalDate dateScheduleDt = LocalDate.parse(strScheduleDt);
-
-			LocalDateTime dateTimeStartDt = dateStartDt.atStartOfDay();
-			LocalDateTime dateTimeScheduleDt = dateScheduleDt.atStartOfDay();
-
-			setRecordEventRequest.getParametersList().get(2).setValue(dateTimeStartDt.toString());
-			setRecordEventRequest.getParametersList().get(6).setValue(dateTimeScheduleDt.toString());
-
-
-
-			log.debug("Received Message {}", setRecordEventRequest);
+    			setRecordEventRequest.getParametersList().get(2).setValue(startDt);
+    			setRecordEventRequest.getParametersList().get(6).setValue(scheduleDt);
+        	}
+			
 
         	setRecordEventServiceExecution.processOperation(setRecordEventRequest);
+        	
 		} catch (JsonProcessingException exception) {
 			throw new ClientExceptionAlfa(MessageResponseEnum.DATA_VALIDATION, exception.getMessage());
 		}
