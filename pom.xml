@@ -47,21 +47,23 @@
 	</scm>
 	
 	<!-- 
-		Nexus repository
+		CodeArtifact repository
 	-->	
-	<repositories>
+	<distributionManagement>
 		<repository>
-			<id>maven.alfa.repo</id>
-			<name>alfa-releases</name>
-			<url>s3://alfa-dig-mvn-repository/alfa-releases/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
+    		<id>alfadig-alfa-dig-mvn-repository</id>
+    		<name>alfadig-alfa-dig-mvn-repository</name>
+    		<url>https://alfadig-435581532860.d.codeartifact.us-east-2.amazonaws.com/maven/alfa-dig-mvn-repository/</url>
+    	</repository>
+	</distributionManagement>
+	
+	<repositories>
+        <repository>
+            <id>alfadig-alfa-dig-mvn-repository</id>
+            <name>alfadig-alfa-dig-mvn-repository</name>
+            <url>https://alfadig-435581532860.d.codeartifact.us-east-2.amazonaws.com/maven/alfa-dig-mvn-repository/</url>
+        </repository>
+    </repositories>
 
 	<!-- 
 		Environment profiles
@@ -264,12 +266,6 @@
 
 	<build>
 		<finalName>events-service</finalName>
-		<extensions>
-			<extension>
-				<groupId>com.github.seahen</groupId>
-				<artifactId>maven-s3-wagon</artifactId>
-			</extension>
-		</extensions>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>

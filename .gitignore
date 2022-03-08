@@ -13,11 +13,13 @@ target/
 .springBeans
 .sts4-cache
 
+
 ### IntelliJ IDEA ###
 .idea
 *.iws
 *.iml
 *.ipr
+*Application-classpath-*
 
 ### NetBeans ###
 /nbproject/private/
@@ -31,5 +33,5 @@ build/
 
 ### VS Code ###
 .vscode/
+.scannerwork/
 
-settings.xml

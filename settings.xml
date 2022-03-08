@@ -1,0 +1,31 @@
+<settings>
+	<servers>
+		<server>
+			<id>alfadig-alfa-dig-mvn-repository</id>
+			<username>aws</username>
+			<password>${env.CODEARTIFACT_AUTH_TOKEN}</password>
+		</server>
+	</servers>
+	<mirrors>
+		<mirror>
+			<id>alfadig-alfa-dig-mvn-repository</id>
+			<name>alfadig-alfa-dig-mvn-repository</name>
+			<url>https://alfadig-435581532860.d.codeartifact.us-east-2.amazonaws.com/maven/alfa-dig-mvn-repository/</url>
+			<mirrorOf>*</mirrorOf>
+		</mirror>
+	</mirrors>
+	<profiles>
+		<profile>
+			<id>alfadig-alfa-dig-mvn-repository</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<repositories>
+				<repository>
+					<id>alfadig-alfa-dig-mvn-repository</id>
+					<url>https://alfadig-435581532860.d.codeartifact.us-east-2.amazonaws.com/maven/alfa-dig-mvn-repository/</url>
+				</repository>
+			</repositories>
+		</profile>
+	</profiles>
+</settings>
