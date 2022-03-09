@@ -47,21 +47,23 @@
 	</scm>
 	
 	<!-- 
-		Nexus repository
+		CodeArtifact repository
 	-->	
-	<repositories>
+	<distributionManagement>
 		<repository>
-			<id>alfa-group</id>
-			<name>alfa-group</name>
-			<url>http://172.17.0.2:8081/repository/alfa-group/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
+    		<id>alfadig-alfa-dig-mvn-repository</id>
+    		<name>alfadig-alfa-dig-mvn-repository</name>
+    		<url>https://alfadig-435581532860.d.codeartifact.us-east-2.amazonaws.com/maven/alfa-dig-mvn-repository/</url>
+    	</repository>
+	</distributionManagement>
+	
+	<repositories>
+        <repository>
+            <id>alfadig-alfa-dig-mvn-repository</id>
+            <name>alfadig-alfa-dig-mvn-repository</name>
+            <url>https://alfadig-435581532860.d.codeartifact.us-east-2.amazonaws.com/maven/alfa-dig-mvn-repository/</url>
+        </repository>
+    </repositories>
 
 	<!-- 
 		Environment profiles
@@ -264,7 +266,6 @@
 
 	<build>
 		<finalName>events-service</finalName>
-		
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>

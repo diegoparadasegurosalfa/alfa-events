@@ -9,10 +9,12 @@
 # Imagen base del Docker Registry para compilar nuestra servicio de kid de bienvenida
 # Build Stage
 FROM maven:3.6.3-ibmjava-8-alpine AS builder
+ARG CODEARTIFACT_AUTH_TOKEN
 WORKDIR /build/
 COPY pom.xml .
+COPY settings.xml .
 COPY ./src ./src
-RUN mvn clean package -Dmaven.test.skip=true
+RUN mvn --settings settings.xml clean package -Dmaven.test.skip=true
 
 # Run Stage
 FROM openjdk:8-jre-alpine
