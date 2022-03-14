@@ -3,9 +3,9 @@
 # +-----------------------------------------------------
 logging:
   level:
-    org.springframework.web: DEBUG
-    org.springframework.web.client.RestTemplate: DEBUG    
-    co.com.alfaseguros: DEBUG
+    org.springframework.web: ${LEVEL_LOG:DEBUG}
+    org.springframework.web.client.RestTemplate: ${LEVEL_LOG:DEBUG}    
+    co.com.alfaseguros: ${LEVEL_LOG:DEBUG}
   pattern:
     console: "%d{yyyy-MMM-dd HH:mm:ss a} [%t] %-5level %logger{36} - %msg%n"
     file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
@@ -13,12 +13,6 @@ logging:
 # +-----------------------------------------------------
 # |         ALFA PARAMS
 # +-----------------------------------------------------
-
-#cloud:
-#  aws:
-#    region:
-#      static: ${REGION:us-east-2}
-#      auto: false
 
 alfa:
   props:
@@ -31,3 +25,5 @@ alfa:
   queues:
     auditinpolicyquery:
       name: ${NAME_QUEUES_POLICY_QUERY:audit-in-policy-query}
+    auditinpaymentregistry:
+      name: ${NAME_QUEUES_PAYMENT_REGISTRY:audit-in-payment-registry}

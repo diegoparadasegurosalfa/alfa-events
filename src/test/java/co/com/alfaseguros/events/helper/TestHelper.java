@@ -92,7 +92,7 @@ public class TestHelper {
 		return detailList;
 	}
 	
-	public static SetRecordEventResponse simulateSucessSetRecordEventResponse() {		
+	public static SetRecordEventResponse simulateSuccessSetRecordEventResponse() {		
 		SetRecordEventResponse setRecordEventResponse = new SetRecordEventResponse();
 		setRecordEventResponse.setStatusCode("200");
 		setRecordEventResponse.setStatusDesc("Transacción exiotsa");
@@ -101,13 +101,6 @@ public class TestHelper {
 	
 	public static Void simulateVoidResponse() {
 		return null;
-	}
-	
-	public static SetRecordEventResponse simulateFailedSetRecordEventResponse() {		
-		SetRecordEventResponse setRecordEventResponse = new SetRecordEventResponse();
-		setRecordEventResponse.setStatusCode("501");
-		setRecordEventResponse.setStatusDesc("Addition no es un valor valido");
-		return setRecordEventResponse;
 	}
 	
 	public static ResponseEntity<SetRecordRegistryQueueMessageResponse> simulateSucessSetRecordRegistryQueueMessageResponse() {		
@@ -146,7 +139,7 @@ public class TestHelper {
 	}
 	
 	public static String getSQSSetApplicationLogRequest() {		
-		String message = " {\r\n"
+		String message = "{\r\n"
 				+ "  \"UserName\": \"dparada1\",\r\n"
 				+ "  \"DateTime\": \"2021-03-25T17:59:31\",\r\n"
 				+ "  \"Ip\": \"186.84.91.22\",\r\n"
@@ -161,6 +154,114 @@ public class TestHelper {
 				+ "      \"Value\": \"1023003712\"\r\n"
 				+ "    }\r\n"
 				+ "  ]\r\n"
+				+ "}";
+		return message;
+	}
+	
+	public static String getSQSSetRecordEventRequest() {		
+		String message = "{\r\n"
+				+ "	\"Source\": \"alfa-payments\",\r\n"
+				+ "	\"Action\": \"Add\",\r\n"
+				+ "	\"TableName\": \"transactions\",\r\n"
+				+ "	\"ParametersList\": [{\r\n"
+				+ "			\"Key\": \"policyId\",\r\n"
+				+ "			\"Value\": \"50004PD011013577779\"\r\n"
+				+ "		},\r\n"
+				+ "		{\r\n"
+				+ "			\"Key\": \"payId\",\r\n"
+				+ "			\"Value\": \"1231245\"\r\n"
+				+ "		},\r\n"
+				+ "		{\r\n"
+				+ "			\"Key\": \"amt\",\r\n"
+				+ "			\"Value\": \"10160.14\"\r\n"
+				+ "		},\r\n"
+				+ "		{\r\n"
+				+ "			\"Key\": \"externalUpdateId\",\r\n"
+				+ "			\"Value\": \"54\"\r\n"
+				+ "		},\r\n"
+				+ "		{\r\n"
+				+ "			\"Key\": \"notificationTime\",\r\n"
+				+ "			\"Value\": \"2021-03-01T15:06:01\"\r\n"
+				+ "		},\r\n"
+				+ "		{\r\n"
+				+ "			\"Key\": \"notified\",\r\n"
+				+ "			\"Value\": \"true\"\r\n"
+				+ "		},\r\n"
+				+ "		{\r\n"
+				+ "			\"Key\": \"paymentscheduleId\",\r\n"
+				+ "			\"Value\": \"1\"\r\n"
+				+ "		},\r\n"
+				+ "		{\r\n"
+				+ "			\"Key\": \"policyValidityNumber\",\r\n"
+				+ "			\"Value\": \"2\"\r\n"
+				+ "		},\r\n"
+				+ "		{\r\n"
+				+ "			\"Key\": \"statusCode\",\r\n"
+				+ "			\"Value\": \"APPROVED\"\r\n"
+				+ "		},\r\n"
+				+ "		{\r\n"
+				+ "			\"Key\": \"statusDesc\",\r\n"
+				+ "			\"Value\": \"Transaccion APROBADA\"\r\n"
+				+ "		},\r\n"
+				+ "		{\r\n"
+				+ "			\"Key\": \"transactionTime\",\r\n"
+				+ "			\"Value\": \"2020-12-02T16:35:04\"\r\n"
+				+ "		}\r\n"
+				+ "	]\r\n"
+				+ "}";
+		return message;
+	}
+	
+	public static String getBadSQSSetRecordEventRequest() {		
+		String message = "{\r\n"
+				+ "	\"Source\": \"alfa-payments\",\r\n"
+				+ "	\"Action\": \"Addition\",\r\n"
+				+ "	\"TableName\": \"transactions\",\r\n"
+				+ "	\"ParametersList\": [{\r\n"
+				+ "			\"Key\": \"policyId\",\r\n"
+				+ "			\"Value\": \"50004PD011013577779\"\r\n"
+				+ "		},\r\n"
+				+ "		{\r\n"
+				+ "			\"Key\": \"payId\",\r\n"
+				+ "			\"Value\": \"1231245\"\r\n"
+				+ "		},\r\n"
+				+ "		{\r\n"
+				+ "			\"Key\": \"amt\",\r\n"
+				+ "			\"Value\": \"10160.14\"\r\n"
+				+ "		},\r\n"
+				+ "		{\r\n"
+				+ "			\"Key\": \"externalUpdateId\",\r\n"
+				+ "			\"Value\": \"54\"\r\n"
+				+ "		},\r\n"
+				+ "		{\r\n"
+				+ "			\"Key\": \"notificationTime\",\r\n"
+				+ "			\"Value\": \"2021-03-01T15:06:01\"\r\n"
+				+ "		},\r\n"
+				+ "		{\r\n"
+				+ "			\"Key\": \"notified\",\r\n"
+				+ "			\"Value\": \"true\"\r\n"
+				+ "		},\r\n"
+				+ "		{\r\n"
+				+ "			\"Key\": \"paymentscheduleId\",\r\n"
+				+ "			\"Value\": \"1\"\r\n"
+				+ "		},\r\n"
+				+ "		{\r\n"
+				+ "			\"Key\": \"policyValidityNumber\",\r\n"
+				+ "			\"Value\": \"2\"\r\n"
+				+ "		},\r\n"
+				+ "		{\r\n"
+				+ "			\"Key\": \"statusCode\",\r\n"
+				+ "			\"Value\": \"APPROVED\"\r\n"
+				+ "		},\r\n"
+				+ "		{\r\n"
+				+ "			\"Key\": \"statusDesc\",\r\n"
+				+ "			\"Value\": \"Transaccion APROBADA\"\r\n"
+				+ "		},\r\n"
+				+ "		{\r\n"
+				+ "			\"Key\": \"transactionTime\",\r\n"
+				+ "			\"Value\": \"2020-12-02T16:35:04\"\r\n"
+				+ "		}\r\n"
+				+ "	]\r\n"
 				+ "}";
 		return message;
 	}

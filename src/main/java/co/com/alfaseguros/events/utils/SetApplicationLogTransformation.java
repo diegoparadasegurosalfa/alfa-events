@@ -26,7 +26,7 @@ public class SetApplicationLogTransformation implements Transformation<SetApplic
 			for (Detail sourceDetail: input.getDetail()) {
 				co.com.alfaseguros.events.domain.entities.Detail targetDetail = new co.com.alfaseguros.events.domain.entities.Detail();
 				targetDetail.setKey(sourceDetail.getKey());
-				targetDetail.setKey(sourceDetail.getKey());
+				targetDetail.setValue(sourceDetail.getValue());
 				output.getDetail().add(targetDetail);
 			}
 			return output;

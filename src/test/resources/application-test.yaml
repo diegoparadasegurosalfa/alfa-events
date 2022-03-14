@@ -31,3 +31,5 @@ alfa:
   queues:
     auditinpolicyquery:
       name: ${NAME_QUEUES_POLICY_QUERY:audit-in-policy-query}
+    auditinpaymentregistry:
+      name: ${NAME_QUEUES_PAYMENT_REGISTRY:audit-in-payment-registry}

@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 @Component("setRecordEventServiceExecution")
-public class SetRecordEventServiceExecution implements ServiceExecution<SetRecordEventRequest, SetRecordEventResponse>{
+public class SetRecordEventServiceExecution implements ServiceExecution<SetRecordEventRequest, Void>{
 	
 	@Qualifier("setRecordRegistryQueueMessageInfraService")
 	private final InfraService<SetRecordRegistryQueueMessageRequest, SetRecordRegistryQueueMessageResponse> setRecordRegistryQueueMessageInfraService;
@@ -32,7 +32,7 @@ public class SetRecordEventServiceExecution implements ServiceExecution<SetRecor
 	private final Transformation<SetRecordRegistryQueueMessageResponse, SetRecordEventResponse> setRecordEventransformation;
 	
 	@Override
-	public SetRecordEventResponse processOperation(SetRecordEventRequest data) throws ExceptionAlfa {
+	public Void processOperation(SetRecordEventRequest data) throws ExceptionAlfa {
 		SetRecordRegistryQueueMessageRequest setRecordRegistryQueueMessageRequest = setRecordRegistryQueueMessageTransformation.transformStructure(data);
 		ResponseEntity<SetRecordRegistryQueueMessageResponse> responseEntity = setRecordRegistryQueueMessageInfraService.callService(setRecordRegistryQueueMessageRequest);
 		SetRecordRegistryQueueMessageResponse setRecordRegistryQueueMessageResponse = responseEntity.getBody();
@@ -43,7 +43,7 @@ public class SetRecordEventServiceExecution implements ServiceExecution<SetRecor
 		}else {
 			throw new ServerExceptionAlfa(MessageResponseEnum.SERVICE_CALL_ERROR);
 		}
-		return setRecordEventransformation.transformStructure(setRecordRegistryQueueMessageResponse);
+		return null;
 	}
 }
 

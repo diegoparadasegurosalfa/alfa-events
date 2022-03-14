@@ -53,7 +53,7 @@
 		<repository>
 			<id>alfa-group</id>
 			<name>alfa-group</name>
-			<url>http://localhost:8081/repository/alfa-group/</url>
+			<url>http://172.17.0.2:8081/repository/alfa-group/</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
@@ -129,11 +129,11 @@
 	    	<version>2.14.23</version>
 	    	<type>pom</type>
 	    	<scope>import</scope>
-	    </dependency>	   
-	    <dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-dependencies</artifactId>
-			<version>${spring-cloud.version}</version>
+	    </dependency>
+		<dependency>
+			<groupId>io.awspring.cloud</groupId>
+			<artifactId>spring-cloud-aws-dependencies</artifactId>
+			<version>2.3.0</version>
 			<type>pom</type>
 			<scope>import</scope>
 		</dependency>
@@ -191,15 +191,10 @@
 		</dependency>
 		
 		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-aws</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-aws-messaging</artifactId>
-		</dependency>
-		
+	        <groupId>io.awspring.cloud</groupId>
+	        <artifactId>spring-cloud-starter-aws-messaging</artifactId>
+    	</dependency>
+
 		<dependency> 
 		    <groupId>org.springframework.boot</groupId> 
 		    <artifactId>spring-boot-starter-validation</artifactId> 
@@ -208,8 +203,21 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
+			<version>1.18.22</version>
 			<optional>true</optional>
 		</dependency>
+		
+		<dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.16.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-to-slf4j</artifactId>
+            <version>2.16.0</version>
+        </dependency>
 		
 		<dependency>
 		    <groupId>com.fasterxml.jackson.core</groupId>
@@ -363,41 +371,6 @@
 			    </executions>
 			</plugin>
 
-			<plugin>
-			    <groupId>com.lazerycode.jmeter</groupId>
-			    <artifactId>jmeter-maven-plugin</artifactId>
-			    <version>${jmeter.plugin.version}</version>
-			    <executions>
-                    <!-- Generate JMeter configuration -->
-                    <execution>
-                    	<?m2e ignore?>
-                        <id>configuration</id>
-                        <goals>
-                            <goal>configure</goal>
-                        </goals>
-                    </execution>
-                    <!-- Run JMeter tests -->
-                    <execution>
-                        <id>jmeter-tests</id>
-                        <goals>
-                            <goal>jmeter</goal>
-                        </goals>
-                    </execution>
-                    <!-- Fail build on errors in test -->
-                    <execution>
-                        <id>jmeter-check-results</id>
-                        <goals>
-                            <goal>results</goal>
-                        </goals>
-                    </execution>
-                </executions>
-			    <configuration>
-			    	<generateReports>true</generateReports>
-					<propertiesUser>
-					</propertiesUser>
-					<propertiesFilesDirectory>src/test/jmeter/${activatedProperties}</propertiesFilesDirectory>
-				</configuration>
-			</plugin>
 		</plugins>
 	</build>
 
